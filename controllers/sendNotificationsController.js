@@ -4,12 +4,12 @@ const messageModel= require("../database/models/messageModel");
 
 
 const message= async (req, res) => {
-  const { userTokens, message} = req.body;
+  const { fTokens, message} = req.body;
 
   try {
-    const serializedUserTokens = JSON.stringify(userTokens);
+    const serializedfTokens = JSON.stringify(fTokens);
 
-    await messageModel.create({ userTokens: serializedUserTokens, message}); 
+    await messageModel.create({ fTokens: serializedfTokens, message}); 
  
     res.status(201).json({ message: 'Notification sent to users successfully' });
   } catch (err) {
@@ -22,4 +22,4 @@ const message= async (req, res) => {
 
 
 
-module.exports= message
+module.exports= message;

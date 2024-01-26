@@ -29,7 +29,7 @@ const user = model.define("User", {
 
 
 user.sync({ force: false })
-    .then(() => console.log('Table created successfully'))
+    .then()
     .catch(error => console.error('Error creating table:', error));
 
 module.exports = user;

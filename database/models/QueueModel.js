@@ -9,7 +9,6 @@ const queue = model.define("queue", {
   fToken: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true,
   },
   message: {
     type: Sequelize.STRING,
@@ -28,7 +27,7 @@ const queue = model.define("queue", {
 
 
 queue.sync({ force: false })
-    .then(() => console.log('Table created successfully'))
+    .then()
     .catch(error => console.error('Error creating table:', error));
 
 module.exports = queue;

@@ -1,7 +1,8 @@
 const express = require("express");
-const router= express.Router();
 const register = require("../controllers/registerController");
 const message = require("../controllers/sendNotificationsController");
+
+const router = express.Router();
 
 
 
@@ -13,4 +14,4 @@ router.post('/send-notifications', message);
   
 
 
-  module.exports = router
+  module.exports = router;

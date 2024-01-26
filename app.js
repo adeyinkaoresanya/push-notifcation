@@ -1,13 +1,13 @@
-const express= require("express")
-const bodyParser= require("body-parser")
-const connectToDB = require("./database/db").connectToDB
+const express= require("express");
+const bodyParser= require("body-parser");
+const connectToDB = require("./database/db").connectToDB;
 
-const firebaseConfig = require("./config/fireBaseConfig");
-const routes= require("./routes/routes")
 
-const app=express()
+const routes= require("./routes/routes");
 
-const PORT = 3000
+const app=express();
+
+const PORT = 3000;
 
 
 app.use(express.json());
@@ -18,10 +18,10 @@ app.use(bodyParser.json())
     }));
 
 
-app.use("/", routes)
+app.use("/", routes);
 
 
-connectToDB()
+connectToDB();
 
 app.listen(PORT, ()=>{
     console.log(`server is listening at PORT ${PORT}`)

@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 const model = require("../db").dbConnection
 
 const message= model.define("messages", {
-  userTokens: {
+  fTokens: {
     type: Sequelize.STRING,
     allowNull: false,
   },
@@ -20,7 +20,7 @@ const message= model.define("messages", {
 
 
 message.sync({ force: false })
-    .then(() => console.log('Table created successfully'))
+    .then()
     .catch(error => console.error('Error creating table:', error));
 
 module.exports = message;

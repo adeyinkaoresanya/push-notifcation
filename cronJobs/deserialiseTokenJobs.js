@@ -1,8 +1,9 @@
-//const {Op} = require('sequelize');
 //const nodeScheduler = require('node-scheduler');
-const messageModel = require("../database/models/messageModel")
-const queueModel = require("../database/models/QueueModel")
-const userModel = require("../database/models/userModel")
+const messageModel = require("../database/models/messageModel");
+const queueModel = require("../database/models/QueueModel");
+const userModel = require("../database/models/userModel");
+const { Op } = require("sequelize")
+
 
 
 // Function to handle the cron job task
@@ -17,28 +18,31 @@ async function deserialiseTokens() {
     });
 
     if(messageDetail){
-      const userTokens= JSON.parse(messageDetail.dataValues.userTokens)
-      const message = messageDetail.dataValues.message
-      const users = await userModel.findAll({ raw: true })
-      const usersDetails = users.filter(obj => userTokens.includes(obj.userToken));
+      const { fTokens, message } = messageDetail.dataValues;
+      const parsedTokens = JSON.parse(fTokens);
 
-      await Promise.all(usersDetails.map(async (user) => {
+     const existingUsers = await userModel.findAll({
+       where: { fToken: { [Op.in]: parsedTokens } },
+       attributes: ['userToken', 'fToken'],
+     });
+    
+      await Promise.all(existingUsers.map(async (user) => {
         const { userToken, fToken } = user;
 
-        queue = await queueModel.create({ userToken, fToken, message});
-      
-  
-      }))
+      queue = await queueModel.create({ userToken, fToken, message});
+      }
+      ))
+
+    
 
       messageDetail.status = 1;
-      console.log(messageDetail)
       await messageDetail.save();
-    }
+     }
 
     console.log('Job run successfully');
     
   } catch (error) {
-    console.error('Error executing:', error);
+    console.error('Error executing job:', error);
   }
 }
 

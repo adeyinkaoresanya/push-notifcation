@@ -19,7 +19,5 @@ async function sendNotification(fToken, message) {
     }
   }
 
-// token = "eh2P1LbygGAMasndaVtHQx:APA91bGEF6ADYFmqH3uds9ovnAcJgaPDzJWd_DbMMUYeasqGmkW4IH9FdxXYEVrPCd-gPLT3oNhkGr_QDdQD8Wpn9Vh5eUZUuzRKfZE7H5YowTbhjKyuUEUgMXga7hZyxZYK8Z5W9saB"
-// message= "Welcome to Reni"
-// console.log(sendNotification(token, message))
+
 module.exports= sendNotification;

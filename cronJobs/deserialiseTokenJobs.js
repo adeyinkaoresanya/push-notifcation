@@ -1,4 +1,3 @@
-//const nodeScheduler = require('node-scheduler');
 const messageModel = require("../database/models/messageModel");
 const queueModel = require("../database/models/QueueModel");
 const userModel = require("../database/models/userModel");
@@ -6,8 +5,7 @@ const { Op } = require("sequelize")
 
 
 
-// Function to handle the cron job task
-async function deserialiseTokens() {
+const deserialiseTokens = async () => {
   try {
     const messageDetail = await messageModel.findOne({
       where: {
@@ -39,17 +37,16 @@ async function deserialiseTokens() {
       await messageDetail.save();
      }
 
-    console.log('Job run successfully');
+    console.log('Tokens has been deserialised successfully');
     
   } catch (error) {
-    console.error('Error executing job:', error);
+    console.error('Error deserialising tokens:', error);
   }
 }
 
 
-console.log(deserialiseTokens())
 
-// Schedule the job to run every 5 minutes
-// nodeScheduler.scheduleJob('* * * * *', deserialiseTokens);
+
+module.exports = deserialiseTokens
 
 

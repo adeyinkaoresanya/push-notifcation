@@ -33,26 +33,24 @@ const sendNotificationToAllUsers= async () => {
               const unAvailableUser = await userModel.findOne({where: { fToken: result.fToken} });
              
               unAvailableUser.score -= 2;
-      //console.log(unAvailableUser)
             await unAvailableUser.save();
      
             } else{
               const notifiedUser = await queueModel.findOne({where: { fToken: result.fToken, message: result.message } });
-              console.log(notifiedUser)
               notifiedUser.status = 1;
           await notifiedUser.save();
             }
           });
       
-          res.json({ message: 'Notifications sent' });
+          
         } catch (err) {
           console.error(err);
           //res.status(500).json({ message: 'Error sending notifications' });
         }
       };
 
-  console.log(sendNotificationToAllUsers())   
-//module.exports= sendNotificationToAllUsers
+  //console.log(sendNotificationToAllUsers())   
+module.exports= sendNotificationToAllUsers
 
 
 
